@@ -276,7 +276,7 @@ const createAndSendToken = (user, statusCode, res, message) => {
     expires: new Date(Date.now() + CONFIG.COOKIE_EXPIRES_MS),
     httpOnly: true,
     secure: CONFIG.IS_PRODUCTION,
-    sameSite: CONFIG.IS_PRODUCTION ? "strict" : "lax",
+    sameSite: CONFIG.IS_PRODUCTION ? "none" : "lax",
   };
 
   res.cookie("jwt", token, cookieOptions);
@@ -290,6 +290,7 @@ const createAndSendToken = (user, statusCode, res, message) => {
     },
   });
 };
+
 
 const createTemporaryToken = (sessionId, email) => {
   return jwt.sign(
@@ -430,7 +431,7 @@ exports.handleSocialAuth = async (profile, provider, res) => {
       expires: new Date(Date.now() + CONFIG.COOKIE_EXPIRES_MS),
       httpOnly: true,
       secure: CONFIG.IS_PRODUCTION,
-      sameSite: CONFIG.IS_PRODUCTION ? "strict" : "lax",
+      sameSite: CONFIG.IS_PRODUCTION ? "none" : "lax",
       path: '/',
     };
 
@@ -449,6 +450,7 @@ exports.handleSocialAuth = async (profile, provider, res) => {
     session.endSession();
   }
 };
+
 
 exports.acceptTerms = [
   protectSignupStep,
