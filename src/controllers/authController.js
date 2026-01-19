@@ -291,7 +291,6 @@ const createAndSendToken = (user, statusCode, res, message) => {
   });
 };
 
-
 const createTemporaryToken = (sessionId, email) => {
   return jwt.sign(
     {
@@ -450,7 +449,6 @@ exports.handleSocialAuth = async (profile, provider, res) => {
     session.endSession();
   }
 };
-
 
 exports.acceptTerms = [
   protectSignupStep,

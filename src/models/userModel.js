@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema(
         },
         profilePhoto: { 
             type: String, 
-            default: "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" 
+            default: "https://waggetail.s3.ap-south-1.amazonaws.com/defaults/db.png" 
         },
         pronouns: {
             type: String,

@@ -1,6 +1,6 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const InstagramStrategy = require("passport-instagram").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 const TikTokStrategy = require("passport-tiktok-auth").Strategy;
 
 passport.use(
@@ -20,12 +20,18 @@ passport.use(
   )
 );
 
+// Instagram now uses Facebook/Meta Graph API
 passport.use(
-  new InstagramStrategy(
+  "instagram",
+  new FacebookStrategy(
     {
       clientID: process.env.INSTAGRAM_CLIENT_ID,
       clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
       callbackURL: "https://waggetails.onrender.com/api/v1/auth/instagram/callback",
+      authorizationURL: "https://www.facebook.com/v18.0/dialog/oauth",
+      tokenURL: "https://graph.facebook.com/v18.0/oauth/access_token",
+      graphAPIVersion: "v18.0",
+      profileURL: "https://graph.instagram.com/me",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -42,8 +48,8 @@ passport.use(
     {
       clientID: process.env.TIKTOK_CLIENT_ID,
       clientSecret: process.env.TIKTOK_CLIENT_SECRET,
-      callbackURL: "/api/v1/auth/tiktok/callback",
-      scope: ["user.info.basic"],
+      callbackURL: "https://waggetails.onrender.com/api/v1/auth/tiktok/callback",
+      scope: ["user.info.basic", "user.info.profile"],
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
